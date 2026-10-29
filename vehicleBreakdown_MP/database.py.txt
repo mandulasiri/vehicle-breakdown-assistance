@@ -1,0 +1,30 @@
+import sqlite3
+
+conn = sqlite3.connect("database.db")
+
+# Users table
+conn.execute("""
+CREATE TABLE IF NOT EXISTS users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    email TEXT UNIQUE,
+    phone TEXT,
+    password TEXT
+)
+""")
+
+# Vehicle assistance requests table
+conn.execute("""
+CREATE TABLE IF NOT EXISTS requests(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    vehicle TEXT,
+    problem TEXT,
+    location TEXT,
+    status TEXT
+)
+""")
+
+conn.commit()
+conn.close()
+
+print("Database created successfully!")

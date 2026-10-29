@@ -1,0 +1,160 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Breakdown Help</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.55),
+                                rgba(0, 0, 0, 0.55)),
+                url("{{ url_for('static', filename='images/home.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .help-card {
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            text-align: center;
+            color: #b42318;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .btn {
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        #map {
+            height: 250px;
+            border-radius: 12px;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+    <div class="help-card">
+
+        <h2>🚗 Request Breakdown Help</h2>
+        <p class="subtitle">
+            Tell us about your vehicle problem and location.
+        </p>
+
+        <form method="POST">
+
+            <label class="form-label">Vehicle Type</label>
+            <input name="vehicle" class="form-control mb-3"
+                   placeholder="e.g. Car, Bike, Scooter" required>
+
+            <label class="form-label">Describe the Problem</label>
+            <textarea name="problem" class="form-control mb-3"
+                      placeholder="Describe your vehicle problem"
+                      rows="3" required></textarea>
+
+            <label class="form-label">Your Location</label>
+            <input name="location" id="location"
+                   class="form-control mb-3"
+                   placeholder="Enter location or detect it" required>
+
+            <button type="button" class="btn btn-info w-100 mb-3"
+                    onclick="getLocation()">
+                📍 Detect My Location
+            </button>
+
+            <div id="map" class="mb-3 d-flex align-items-center
+                                justify-content-center text-secondary">
+                Your location map will appear here.
+            </div>
+
+            <button type="submit" class="btn btn-danger w-100">
+                🚨 Send Emergency Request
+            </button>
+
+            <a href="/dashboard"
+               class="btn btn-outline-secondary w-100 mt-2">
+                Back to Dashboard
+            </a>
+
+        </form>
+    </div>
+</div>
+
+<script>
+function getLocation() {
+    const locationInput = document.getElementById("location");
+
+    if (!navigator.geolocation) {
+        alert("Location detection is not supported by this browser.");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        function(pos) {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            locationInput.value = lat + "," + lon;
+
+            document.getElementById("map").innerHTML =
+                '<iframe width="100%" height="100%" ' +
+                'style="border:0" loading="lazy" ' +
+                'src="https://maps.google.com/maps?q=' +
+                lat + ',' + lon +
+                '&z=15&output=embed"></iframe>';
+        },
+        function() {
+            alert("Unable to detect location. Please allow location access or enter it manually.");
+        }
+    );
+}
+</script>
+
+</body>
+</html>
+```

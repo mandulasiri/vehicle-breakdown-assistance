@@ -1,0 +1,143 @@
+from flask import Flask, render_template, request, redirect, jsonify
+import sqlite3
+
+app = Flask(__name__)
+
+# Database Connection
+def get_db():
+    return sqlite3.connect("database.db")
+
+
+# Home Page
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
+# Register
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        email = request.form["email"]
+        phone = request.form["phone"]
+        password = request.form["password"]
+
+        conn = get_db()
+
+        conn.execute(
+            "INSERT INTO users(name,email,phone,password) VALUES(?,?,?,?)",
+            (name, email, phone, password)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return redirect("/login")
+
+    return render_template("register.html")
+
+
+# Login
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        email = request.form["email"]
+        password = request.form["password"]
+
+        conn = get_db()
+
+        user = conn.execute(
+            "SELECT * FROM users WHERE email=? AND password=?",
+            (email, password)
+        ).fetchone()
+
+        conn.close()
+
+        if user:
+            return redirect("/dashboard")
+
+        return "Invalid Login"
+
+    return render_template("login.html")
+
+
+# Dashboard
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+# Request Help
+@app.route("/request", methods=["GET", "POST"])
+def request_help():
+
+    if request.method == "POST":
+
+        vehicle = request.form["vehicle"]
+        problem = request.form["problem"]
+        location = request.form["location"]
+
+        conn = get_db()
+
+        conn.execute(
+            "INSERT INTO requests(vehicle,problem,location,status) VALUES(?,?,?,?)",
+            (vehicle, problem, location, "Pending")
+        )
+
+        conn.commit()
+        conn.close()
+
+        return "Request Sent Successfully! 🚗"
+
+    return render_template("request.html")
+
+
+# Analytics Page
+@app.route("/chart")
+def chart():
+    return render_template("chart.html")
+
+
+# Chat Page
+@app.route("/chat")
+def chat():
+    return render_template("chat.html")
+
+
+# SOS Button
+@app.route("/sos", methods=["POST"])
+def sos():
+    return "SOS Alert Sent Successfully! 🚨"
+
+
+# Analytics Data API
+@app.route("/stats")
+def stats():
+
+    conn = get_db()
+
+    users = conn.execute(
+        "SELECT COUNT(*) FROM users"
+    ).fetchone()[0]
+
+    requests_count = conn.execute(
+        "SELECT COUNT(*) FROM requests"
+    ).fetchone()[0]
+
+    conn.close()
+
+    return jsonify({
+        "users": users,
+        "requests": requests_count,
+        "mechanics": 15
+    })
+
+
+# Run Application
+if __name__ == "__main__":
+    app.run(debug=True)

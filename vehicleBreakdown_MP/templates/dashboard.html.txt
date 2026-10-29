@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+body{
+background:#f5f7fa;
+}
+
+.card{
+border-radius:20px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+text-align:center;
+padding:20px;
+}
+
+.icon{
+font-size:40px;
+margin-bottom:10px;
+color:#ff5722;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">🚗 Dashboard</h2>
+
+<div class="row">
+
+<div class="col-md-4">
+<div class="card">
+<i class="fas fa-tools icon"></i>
+<h4>Request Help</h4>
+<a href="/request" class="btn btn-danger">Go</a>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card">
+<i class="fas fa-comments icon"></i>
+<h4>Live Chat</h4>
+<a href="/chat" class="btn btn-primary">Open</a>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="card">
+<i class="fas fa-chart-bar icon"></i>
+<h4>Analytics</h4>
+<a href="/chart" class="btn btn-success">View</a>
+</div>
+</div>
+
+</div>
+
+<br>
+
+<div class="text-center">
+
+<button class="btn btn-danger btn-lg" onclick="sendSOS()">
+🚨 EMERGENCY SOS
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function sendSOS(){
+
+fetch("/sos",{method:"POST"})
+.then(()=>alert("SOS Sent Successfully! 🚨"));
+
+}
+
+</script>
+
+</body>
+</html>

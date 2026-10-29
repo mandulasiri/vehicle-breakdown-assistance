@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Analytics</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<style>
+
+body{
+background: linear-gradient(135deg,#667eea,#764ba2);
+color:white;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h2 class="text-center">📊 System Analytics</h2>
+
+<div class="row mt-4">
+
+<div class="col-md-6">
+<div class="card">
+<canvas id="chart1"></canvas>
+</div>
+</div>
+
+<div class="col-md-6">
+<div class="card">
+<canvas id="chart2"></canvas>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+fetch("/stats")
+.then(res=>res.json())
+.then(data=>{
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Vehicle Breakdown Analytics</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+body{
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    min-height:100vh;
+    color:white;
+}
+
+.card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+.stats-box{
+    text-align:center;
+    padding:20px;
+    border-radius:15px;
+    color:white;
+}
+
+.users{
+    background:#0d6efd;
+}
+
+.requests{
+    background:#dc3545;
+}
+
+.mechanics{
+    background:#198754;
+}
+
+h1{
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container mt-4">
+
+<h1 class="text-center mb-4">
+    📊 Vehicle Breakdown Analytics
+</h1>
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="stats-box users">
+            <h2 id="userCount">0</h2>
+            <h5>👤 Registered Users</h5>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stats-box requests">
+            <h2 id="requestCount">0</h2>
+            <h5>🚗 Breakdown Requests</h5>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stats-box mechanics">
+            <h2 id="mechanicCount">0</h2>
+            <h5>🔧 Available Mechanics</h5>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="card">
+            <canvas id="chart1"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <canvas id="chart2"></canvas>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script>
+
+fetch("/stats")
+.then(response => response.json())
+.then(data => {
+
+document.getElementById("userCount").innerHTML = data.users;
+document.getElementById("requestCount").innerHTML = data.requests;
+document.getElementById("mechanicCount").innerHTML = data.mechanics;
+
+
+// BAR CHART
+new Chart(document.getElementById("chart1"), {
+
+type: "bar",
+
+data: {
+
+labels: ["Users", "Requests", "Mechanics"],
+
+datasets: [{
+label: "System Statistics",
+
+data: [
+data.users,
+data.requests,
+data.mechanics
+],
+
+backgroundColor: [
+"#36A2EB",
+"#FF6384",
+"#4BC0C0"
+]
+}]
+}
+
+});
+
+
+// PIE CHART
+new Chart(document.getElementById("chart2"), {
+
+type: "pie",
+
+data: {
+
+labels: ["Users", "Requests", "Mechanics"],
+
+datasets: [{
+data: [
+data.users,
+data.requests,
+data.mechanics
+],
+
+backgroundColor: [
+"#36A2EB",
+"#FF6384",
+"#4BC0C0"
+]
+}]
+}
+
+});
+
+})
+.catch(error => {
+
+console.error(error);
+
+alert("Error loading analytics data.");
+
+});
+
+</script>
+
+</body>
+</html>

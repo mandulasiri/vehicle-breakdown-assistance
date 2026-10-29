@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Vehicle Emergency</title>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Background Image */
+body {
+    background-image:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("{{ url_for('static', filename='images/home.jpg') }}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+min-height: 100vh;
+    height: 100vh;
+    width: 100%;
+}
+
+
+/* Center Content */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Heading */
+h1 {
+    color: white;
+    font-size: 55px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 3px 3px 8px black;
+}
+
+
+/* Description */
+p {
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    text-shadow: 2px 2px 5px black;
+}
+
+
+/* Buttons */
+.btn {
+    margin: 10px;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+
+/* Mobile View */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 35px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .btn {
+        width: 200px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container hero">
+
+    <h1>
+        <i class="fas fa-car-crash"></i>
+        Vehicle Breakdown Assistance
+    </h1>
+
+    <p>
+        🚗 Fast | 🔧 Reliable | 📍 Smart Emergency Help
+    </p>
+
+
+    <div>
+        <a href="/login" class="btn btn-light">
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+        </a>
+
+        <a href="/register" class="btn btn-warning">
+            <i class="fas fa-user-plus"></i>
+            Register
+        </a>
+    </div>
+
+
+    <a href="/request" class="btn btn-danger btn-lg">
+        🚨 Request Emergency Help
+    </a>
+
+</div>
+
+</body>
+
+</html>
